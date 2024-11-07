@@ -4,50 +4,51 @@ let randomNum = Math.floor(Math.random() * 20) + 1;
 const inputBtn = document.querySelector('.check');
 const againBtn = document.querySelector('.again');
 const inputValue = document.querySelector('.guess');
-let message = document.querySelector('.message');
 let correctNumDisplay = document.querySelector('.number');
 let score = document.querySelector('.score');
 let highScore = document.querySelector('.highscore');
 
 againBtn.addEventListener('click', function () {
   inputValue.value = '1';
-  message.textContent = 'Start guessing..';
+  displayMessage('Start guessing..');
   correctNumDisplay.textContent = '?';
-  document.body.style.background = '#222';
+  changeBackground('#222');
   score.textContent = '20';
   randomNum = Math.floor(Math.random() * 20) + 1;
 });
 
 inputBtn.addEventListener('click', function () {
   if (Number(inputValue.value) && Number(inputValue.value) <= 20) {
-    if (Number(inputValue.value) > randomNum) {
+    // when guess is wrong
+
+    if (Number(inputValue.value) !== randomNum) {
       if (Number(score.textContent) > 1) {
-        message.textContent = 'Too High!';
+        displayMessage(
+          Number(inputValue.value) < randomNum ? 'Too Low!' : 'Too High!'
+        );
         score.textContent--;
       } else {
-        lostTheGame();
-      }
-    } else if (Number(inputValue.value) < randomNum) {
-      if (Number(score.textContent) > 1) {
-        message.textContent = 'Too Low!';
-        score.textContent--;
-      } else {
-        lostTheGame();
+        displayMessage('You lost the game!');
+        score.textContent = '0';
       }
     } else {
-      message.textContent = 'Correct Number!';
+      displayMessage('Correct Number!');
       correctNumDisplay.textContent = inputValue.value;
-      document.body.style.background = '#60b347';
+      changeBackground('#60b347');
+
       if (highScore.textContent <= score.textContent) {
         highScore.textContent = score.textContent;
       }
     }
   } else {
-    alert('Please enter a value between 1 and 20');
+    alert('Enter a number between 1 & 20');
   }
 });
 
-function lostTheGame() {
-  message.textContent = 'You lost the game!';
-  score.textContent = '0';
+function displayMessage(message) {
+  document.querySelector('.message').textContent = message;
+}
+
+function changeBackground(color) {
+  document.body.style.backgroundColor = color;
 }
