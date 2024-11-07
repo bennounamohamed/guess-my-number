@@ -10,7 +10,7 @@ let score = document.querySelector('.score');
 let highScore = document.querySelector('.highscore');
 
 againBtn.addEventListener('click', function () {
-  inputValue.value = '';
+  inputValue.value = '1';
   message.textContent = 'Start guessing..';
   correctNumDisplay.textContent = '?';
   document.body.style.background = '#222';
@@ -19,13 +19,21 @@ againBtn.addEventListener('click', function () {
 });
 
 inputBtn.addEventListener('click', function () {
-  if (Number(inputValue.value)) {
+  if (Number(inputValue.value) && Number(inputValue.value) <= 20) {
     if (Number(inputValue.value) > randomNum) {
-      message.textContent = 'Too High!';
-      score.textContent = score.textContent - 1;
+      if (Number(score.textContent) > 1) {
+        message.textContent = 'Too High!';
+        score.textContent--;
+      } else {
+        lostTheGame();
+      }
     } else if (Number(inputValue.value) < randomNum) {
-      message.textContent = 'Too Low!';
-      score.textContent = score.textContent - 1;
+      if (Number(score.textContent) > 1) {
+        message.textContent = 'Too Low!';
+        score.textContent--;
+      } else {
+        lostTheGame();
+      }
     } else {
       message.textContent = 'Correct Number!';
       correctNumDisplay.textContent = inputValue.value;
@@ -38,3 +46,8 @@ inputBtn.addEventListener('click', function () {
     alert('Please enter a value between 1 and 20');
   }
 });
+
+function lostTheGame() {
+  message.textContent = 'You lost the game!';
+  score.textContent = '0';
+}
