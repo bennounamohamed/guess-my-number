@@ -19,7 +19,7 @@ againBtn.addEventListener('click', function () {
 });
 
 inputBtn.addEventListener('click', function () {
-  if (inputValue.value) {
+  if (Number(inputValue.value)) {
     if (Number(inputValue.value) > randomNum) {
       message.textContent = 'Too High!';
       score.textContent = score.textContent - 1;
@@ -35,6 +35,6 @@ inputBtn.addEventListener('click', function () {
       }
     }
   } else {
-    alert('Please enter a value');
+    alert('Please enter a value between 1 and 20');
   }
 });
