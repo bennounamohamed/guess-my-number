@@ -36,7 +36,8 @@ inputBtn.addEventListener('click', function () {
       correctNumDisplay.textContent = inputValue.value;
       changeBackground('#60b347');
 
-      if (highScore.textContent <= score.textContent) {
+      if (highScore.textContent < score.textContent) {
+        score.textContent--;
         highScore.textContent = score.textContent;
       }
     }
